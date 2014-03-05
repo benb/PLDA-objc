@@ -45,6 +45,7 @@ using std::istringstream;
 using std::set;
 using std::map;
 
+
 int LoadAndInitTrainingCorpus(std::vector<string> &lines, 
                               int num_topics,
                               LDACorpus* corpus,
@@ -113,55 +114,68 @@ void FreeCorpus(LDACorpus* corpus) {
   }
 }
 
-}  // namespace learning_lda
-
-int main(int argc, char** argv) {
+LDAAccumulativeModel* LearnFromFile(const string& corpus_file,int num_topics,map<string, int>* word_index_map, int total_iterations, int burn_in_iterations, double alpha, double beta)
+{
   using learning_lda::LDACorpus;
   using learning_lda::LDAModel;
   using learning_lda::LDAAccumulativeModel;
   using learning_lda::LDASampler;
   using learning_lda::LDADocument;
   using learning_lda::LoadAndInitTrainingCorpus;
-  using learning_lda::LDACmdLineFlags;
   using std::list;
+  LDACorpus corpus;
+  int ret = LoadAndInitTrainingCorpus(corpus_file,
+                                     num_topics,
+                                     &corpus, word_index_map);
+
+  LDAAccumulativeModel *accum_model = new LDAAccumulativeModel(num_topics, (*word_index_map).size());
+  LDAModel model(num_topics, *word_index_map);
+  LDASampler sampler(alpha, beta, &model, accum_model);
+  sampler.InitModelGivenTopics(corpus);
+
+
+  for (int iter = 0; iter < total_iterations; ++iter) {
+    std::cout << "Iteration " << iter << " ...\n";
+    double loglikelihood = 0;
+    for (list<LDADocument*>::const_iterator iterator = corpus.begin();
+        iterator != corpus.end();
+        ++iterator) {
+      loglikelihood += sampler.LogLikelihood(*iterator);
+    }
+    std::cout << "Loglikelihood: " << loglikelihood << std::endl;
+    sampler.DoIteration(&corpus, true, iter < burn_in_iterations);
+    std::cout << "DONEa" << "\n";
+  }
+  std::cout << "DONE1" << "\n";
+  (*accum_model).AverageModel(total_iterations - burn_in_iterations);
+  std::cout << "DONE1" << "\n";
+  FreeCorpus(&corpus);
+  std::cout << "DONE1" << "\n";
+  return accum_model;
+}
+
+}  // namespace learning_lda
+
+int main(int argc, char** argv) {
+ 
+  using learning_lda::LDACmdLineFlags;
+  using learning_lda::LearnFromFile;
+  using learning_lda::LDAAccumulativeModel;
+  map<string, int> word_index_map;
+  srand(time(NULL));
 
   LDACmdLineFlags flags;
   flags.ParseCmdFlags(argc, argv);
+
   if (!flags.CheckTrainingValidity()) {
     return -1;
   }
-  srand(time(NULL));
-  LDACorpus corpus;
-  map<string, int> word_index_map;
-  CHECK_GT(LoadAndInitTrainingCorpus(flags.training_data_file_,
-                                     flags.num_topics_,
-                                     &corpus, &word_index_map), 0);
-  LDAModel model(flags.num_topics_, word_index_map);
-  LDAAccumulativeModel accum_model(flags.num_topics_, word_index_map.size());
-  LDASampler sampler(flags.alpha_, flags.beta_, &model, &accum_model);
 
-  sampler.InitModelGivenTopics(corpus);
+  LDAAccumulativeModel *accum_model = LearnFromFile(flags.training_data_file_,flags.num_topics_,&word_index_map, flags.total_iterations_, flags.burn_in_iterations_, flags.alpha_, flags.beta_);
 
-  for (int iter = 0; iter < flags.total_iterations_; ++iter) {
-    std::cout << "Iteration " << iter << " ...\n";
-    if (flags.compute_likelihood_ == "true") {
-      double loglikelihood = 0;
-      for (list<LDADocument*>::const_iterator iterator = corpus.begin();
-           iterator != corpus.end();
-           ++iterator) {
-        loglikelihood += sampler.LogLikelihood(*iterator);
-      }
-      std::cout << "Loglikelihood: " << loglikelihood << std::endl;
-    }
-    sampler.DoIteration(&corpus, true, iter < flags.burn_in_iterations_);
-  }
-  accum_model.AverageModel(
-      flags.total_iterations_ - flags.burn_in_iterations_);
-
-  FreeCorpus(&corpus);
-
+  std::cout << "OUTPUTTING TO " << flags.model_file_ << "\n";
   std::ofstream fout(flags.model_file_.c_str());
-  accum_model.AppendAsString(word_index_map, fout);
+  (*accum_model).AppendAsString(word_index_map, fout);
 
   return 0;
 }
