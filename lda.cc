@@ -45,15 +45,15 @@ using std::istringstream;
 using std::set;
 using std::map;
 
-int LoadAndInitTrainingCorpus(const string& corpus_file,
+int LoadAndInitTrainingCorpus(std::vector<string> &lines, 
                               int num_topics,
                               LDACorpus* corpus,
                               map<string, int>* word_index_map) {
   corpus->clear();
   word_index_map->clear();
-  ifstream fin(corpus_file.c_str());
   string line;
-  while (getline(fin, line)) {  // Each line is a training document.
+  for (int i=0; i < lines.size(); i++){  // Each line is a training document.
+    string line = lines[i];
     if (line.size() > 0 &&      // Skip empty lines.
         line[0] != '\r' &&      // Skip empty lines.
         line[0] != '\n' &&      // Skip empty lines.
@@ -81,6 +81,25 @@ int LoadAndInitTrainingCorpus(const string& corpus_file,
     }
   }
   return corpus->size();
+
+}
+
+int LoadAndInitTrainingCorpus(const string& corpus_file,
+                              int num_topics,
+                              LDACorpus* corpus,
+                              map<string, int>* word_index_map) {
+  ifstream fin(corpus_file.c_str());
+  string line;
+  vector<string> lines;
+  while (getline(fin, line)) {  // Each line is a training document.
+    if (line.size() > 0 &&      // Skip empty lines.
+        line[0] != '\r' &&      // Skip empty lines.
+        line[0] != '\n' &&      // Skip empty lines.
+        line[0] != '#') {       // Skip comment lines.
+      lines.push_back(line);
+    }
+  }
+  return LoadAndInitTrainingCorpus(lines,num_topics,corpus,word_index_map);
 }
 
 void FreeCorpus(LDACorpus* corpus) {
