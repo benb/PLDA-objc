@@ -85,22 +85,20 @@ int LoadAndInitTrainingCorpus(std::vector<string> &lines,
 
 }
 
-int LoadAndInitTrainingCorpus(const string& corpus_file,
-                              int num_topics,
-                              LDACorpus* corpus,
-                              map<string, int>* word_index_map) {
+std::vector<string>* LoadCorpusFile(const string& corpus_file)
+{
   ifstream fin(corpus_file.c_str());
   string line;
-  vector<string> lines;
+  std::vector<string> *lines = new std::vector<string>();
   while (getline(fin, line)) {  // Each line is a training document.
     if (line.size() > 0 &&      // Skip empty lines.
         line[0] != '\r' &&      // Skip empty lines.
         line[0] != '\n' &&      // Skip empty lines.
         line[0] != '#') {       // Skip comment lines.
-      lines.push_back(line);
+      lines->push_back(line);
     }
   }
-  return LoadAndInitTrainingCorpus(lines,num_topics,corpus,word_index_map);
+return lines;
 }
 
 void FreeCorpus(LDACorpus* corpus) {
@@ -114,7 +112,7 @@ void FreeCorpus(LDACorpus* corpus) {
   }
 }
 
-LDAAccumulativeModel* LearnFromFile(const string& corpus_file,int num_topics,map<string, int>* word_index_map, int total_iterations, int burn_in_iterations, double alpha, double beta)
+LDAAccumulativeModel* LearnFromCorpus(std::vector<string> *lines,int num_topics,map<string, int>* word_index_map, int total_iterations, int burn_in_iterations, double alpha, double beta)
 {
   using learning_lda::LDACorpus;
   using learning_lda::LDAModel;
@@ -124,7 +122,7 @@ LDAAccumulativeModel* LearnFromFile(const string& corpus_file,int num_topics,map
   using learning_lda::LoadAndInitTrainingCorpus;
   using std::list;
   LDACorpus corpus;
-  int ret = LoadAndInitTrainingCorpus(corpus_file,
+  int ret = LoadAndInitTrainingCorpus(*lines,
                                      num_topics,
                                      &corpus, word_index_map);
 
@@ -159,7 +157,8 @@ LDAAccumulativeModel* LearnFromFile(const string& corpus_file,int num_topics,map
 int main(int argc, char** argv) {
  
   using learning_lda::LDACmdLineFlags;
-  using learning_lda::LearnFromFile;
+  using learning_lda::LearnFromCorpus;
+  using learning_lda::LoadCorpusFile;
   using learning_lda::LDAAccumulativeModel;
   map<string, int> word_index_map;
   srand(time(NULL));
@@ -171,7 +170,7 @@ int main(int argc, char** argv) {
     return -1;
   }
 
-  LDAAccumulativeModel *accum_model = LearnFromFile(flags.training_data_file_,flags.num_topics_,&word_index_map, flags.total_iterations_, flags.burn_in_iterations_, flags.alpha_, flags.beta_);
+  LDAAccumulativeModel *accum_model = LearnFromCorpus(LoadCorpusFile(flags.training_data_file_),flags.num_topics_,&word_index_map, flags.total_iterations_, flags.burn_in_iterations_, flags.alpha_, flags.beta_);
 
   std::cout << "OUTPUTTING TO " << flags.model_file_ << "\n";
   std::ofstream fout(flags.model_file_.c_str());
