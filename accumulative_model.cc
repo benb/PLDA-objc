@@ -32,7 +32,7 @@ LDAAccumulativeModel::LDAAccumulativeModel(int num_topics, int vocab_size) {
     topic_distributions_[i].resize(num_topics, 0);
   }
 }
-
+    
 // Accumulate a model into accumulative_topic_distributions_ and
 // accumulative_global_distributions_.
 void LDAAccumulativeModel::AccumulateModel(const LDAModel& source_model) {

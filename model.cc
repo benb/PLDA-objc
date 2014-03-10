@@ -110,15 +110,12 @@ void LDAModel::AppendAsString(std::ostream& out) const {
   }
 }
 
-LDAModel::LDAModel(std::istream& in, map<string, int>* word_index_map) {
+    
+void LDAModel::init(std::vector<string> &lines, map<string, int>* word_index_map) {
   word_index_map_.clear();
   memory_alloc_.clear();
-  string line;
-  while (getline(in, line)) {  // Each line is a training document.
-    if (line.size() > 0 &&      // Skip empty lines.
-        line[0] != '\r' &&      // Skip empty lines.
-        line[0] != '\n' &&      // Skip empty lines.
-        line[0] != '#') {       // Skip comment lines.
+  for (int i=0; i < lines.size(); i++) {
+      std::string line=lines[i];
       std::istringstream ss(line);
       string word;
       double count_float;
@@ -127,8 +124,7 @@ LDAModel::LDAModel(std::istream& in, map<string, int>* word_index_map) {
         memory_alloc_.push_back((int64)count_float);
       }
       int size = word_index_map_.size();
-      word_index_map_[word] = size;
-    }
+      word_index_map_[word] = size;       
   }
   int vocab_size = word_index_map_.size();
   int num_topics = memory_alloc_.size() / vocab_size;
@@ -151,4 +147,28 @@ LDAModel::LDAModel(std::istream& in, map<string, int>* word_index_map) {
   }
   *word_index_map = word_index_map_;
 }
+    
+LDAModel::LDAModel(std::istream& in, map<string, int>* word_index_map) {
+  std::vector<string> lines;
+    string line;
+  while (getline(in, line)) {  // Each line is a training document.
+    if (line.size() > 0 &&      // Skip empty lines.
+        line[0] != '\r' &&      // Skip empty lines.
+        line[0] != '\n' &&      // Skip empty lines.
+        line[0] != '#') {       // Skip comment lines.
+        lines.push_back(line);
+    }
+  }
+    init(lines,word_index_map);
+
+}
+    
+LDAModel::LDAModel(std::vector<string>& lines, map<string, int>* word_index_map) {
+    init(lines,word_index_map);
+}
+    
+    /*
+LDAModel::LDAModel(learning_lda::LDAAccumulativeModel &aModel, map<string, int>* word_index_map){
+        
+}*/
 }  // namespace learning_lda

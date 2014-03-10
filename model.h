@@ -72,6 +72,8 @@ class LDAModel {
   // Return a map from word string to index. Intenally we use int to represent
   // each word.
   LDAModel(std::istream& in, map<string, int>* word_index_map);
+    
+  LDAModel(std::vector<string>& lines, map<string, int>* word_index_map);
 
   ~LDAModel() {}
 
@@ -125,6 +127,8 @@ class LDAModel {
   TopicCountDistribution global_distribution_;
 
   map<string, int> word_index_map_;
+    
+  void init(std::vector<string>& lines, map<string, int>* word_index_map);
 };
 
 }  // namespace learning_lda

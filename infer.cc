@@ -34,6 +34,76 @@
 #include "sampler.h"
 #include "cmd_flags.h"
 
+int infer(learning_lda::LDAModel &model, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double>> &ans){
+    using learning_lda::LDACorpus;
+    using learning_lda::LDAModel;
+    using learning_lda::LDAAccumulativeModel;
+    using learning_lda::LDASampler;
+    using learning_lda::LDADocument;
+    using learning_lda::LDACmdLineFlags;
+    using learning_lda::DocumentWordTopicsPB;
+    using learning_lda::RandInt;
+    using std::vector;
+    using std::ifstream;
+    using std::ofstream;
+    using std::istringstream;
+    LDASampler sampler(alpha, beta, &model, NULL);
+    string line;
+    map<string, int> word_index_map;
+    typedef vector<double> dvec;
+    for (int i=0; i < bag_of_words.size(); i++)
+    {
+        string line = bag_of_words[i];
+        istringstream ss(line);
+      DocumentWordTopicsPB document_topics;
+      string word;
+      int count;
+      while (ss >> word >> count) {  // Load and init a document.
+        vector<int32> topics;
+        for (int i = 0; i < count; ++i) {
+          topics.push_back(RandInt(model.num_topics()));
+        }
+        map<string, int>::const_iterator iter = word_index_map.find(word);
+        if (iter != word_index_map.end()) {
+          document_topics.add_wordtopics(word, iter->second, topics);
+        }
+      }
+      LDADocument document(document_topics, model.num_topics());
+      TopicProbDistribution prob_dist(model.num_topics(), 0);
+      for (int iter = 0; iter < iterations; ++iter) {
+        sampler.SampleNewTopicsForDocument(&document, false);
+        if (iter >= burn_in) {
+          const vector<int64>& document_distribution =
+              document.topic_distribution();
+          for (int i = 0; i < document_distribution.size(); ++i) {
+            prob_dist[i] += document_distribution[i];
+          }
+        }
+      }
+        
+      for (int topic = 0; topic < prob_dist.size(); ++topic) {
+          ans[i].push_back(prob_dist[topic] / (iterations - burn_in));
+      }
+    }
+    
+    return 0;
+    
+    }
+
+int infer(string model_path, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double>>&ans){
+    using learning_lda::LDAModel;
+    using learning_lda::LDASampler;
+    using learning_lda::LDADocument;
+    using learning_lda::DocumentWordTopicsPB;
+    using learning_lda::RandInt;
+    using std::ifstream;
+    using std::istringstream;
+    map<string, int> word_index_map;
+    ifstream model_fin(model_path.c_str());
+    LDAModel model(model_fin, &word_index_map);
+    return infer(model, bag_of_words, alpha, beta, iterations, burn_in, ans);
+}
+
 int main(int argc, char** argv) {
   using learning_lda::LDACorpus;
   using learning_lda::LDAModel;
@@ -98,4 +168,5 @@ int main(int argc, char** argv) {
       }
     }
   }
+    
 }

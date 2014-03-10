@@ -33,12 +33,7 @@
 //
 extern char kSegmentFaultCauser[];
 
-#define CHECK(a) if (!(a)) {                                            \
-    std::cerr << "CHECK failed "                                        \
-              << __FILE__ << ":" << __LINE__ << "\n"                    \
-              << #a << " = " << (a) << "\n";                            \
-    *kSegmentFaultCauser = '\0';                                        \
-  }                                                                     \
+#define CHECK(a) a
 
 #define CHECK_EQ(a, b) if (!((a) == (b))) {                             \
     std::cerr << "CHECK_EQ failed "                                     \
