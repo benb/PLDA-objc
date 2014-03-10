@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B346AF27-5B52-4539-85C0-6D8C06275430</string>
+	<key>IDESourceControlProjectName</key>
+	<string>PLDA</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D0ECEBBB-0605-4B78-8612-5505BA9DCE77</key>
+		<string>file:///Users/bpb/Downloads/plda/</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PLDA.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D0ECEBBB-0605-4B78-8612-5505BA9DCE77</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>file:///Users/bpb/Downloads/plda/</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D0ECEBBB-0605-4B78-8612-5505BA9DCE77</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D0ECEBBB-0605-4B78-8612-5505BA9DCE77</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PLDA</string>
+		</dict>
+	</array>
+</dict>
+</plist>
