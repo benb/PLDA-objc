@@ -10,7 +10,7 @@
 #define PLDA_infer_h
 
 
-int infer(learning_lda::LDAModel &model, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double>> &ans);
+int infer(learning_lda::LDAModel &model, std::map<string,int> &word_index_map, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double>> &ans);
 
 int infer(string model_path, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double>>&ans);
 #endif

@@ -16,4 +16,6 @@
 @property (nonatomic) int iterations;
 @property (nonatomic) int burnin;
 @property (nonatomic) NSURL *modelFile;
+- (void)learnFromDocuments:(NSArray *)bagsOfWords;
+- (NSArray *)categoryProbForDocuments:(NSArray *)bagsOfWords;
 @end

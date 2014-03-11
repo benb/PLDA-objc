@@ -34,7 +34,7 @@
 #include "sampler.h"
 #include "cmd_flags.h"
 
-int infer(learning_lda::LDAModel &model, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double>> &ans){
+int infer(learning_lda::LDAModel &model, map<string, int> &word_index_map, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double>> &ans){
     using learning_lda::LDACorpus;
     using learning_lda::LDAModel;
     using learning_lda::LDAAccumulativeModel;
@@ -49,7 +49,6 @@ int infer(learning_lda::LDAModel &model, std::vector<string> &bag_of_words, doub
     using std::istringstream;
     LDASampler sampler(alpha, beta, &model, NULL);
     string line;
-    map<string, int> word_index_map;
     typedef vector<double> dvec;
     for (int i=0; i < bag_of_words.size(); i++)
     {
@@ -101,9 +100,10 @@ int infer(string model_path, std::vector<string> &bag_of_words, double alpha, do
     map<string, int> word_index_map;
     ifstream model_fin(model_path.c_str());
     LDAModel model(model_fin, &word_index_map);
-    return infer(model, bag_of_words, alpha, beta, iterations, burn_in, ans);
+    return infer(model, word_index_map, bag_of_words, alpha, beta, iterations, burn_in, ans);
 }
 
+/*
 int main(int argc, char** argv) {
   using learning_lda::LDACorpus;
   using learning_lda::LDAModel;
@@ -170,3 +170,4 @@ int main(int argc, char** argv) {
   }
     
 }
+ */

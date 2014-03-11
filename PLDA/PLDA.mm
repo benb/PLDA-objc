@@ -32,9 +32,19 @@
 {
     std::map<string, int> wordIndexMap;
     
-    for (NSString *line in bagOfWords)
+    for (NSDictionary *line in bagOfWords)
     {
-        myBag.push_back(*new std::string([line UTF8String]));
+		NSMutableString *lineAsString = [[NSMutableString alloc] init];
+		[line enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+			if ([key hasContent])
+			{
+				[lineAsString appendString:key];
+				[lineAsString appendString:@" "];
+				[lineAsString appendString:[obj description]];
+				[lineAsString appendString:@" "];
+			}
+		}];
+        myBag.push_back(*new std::string([lineAsString UTF8String]));
     }
 
 }
