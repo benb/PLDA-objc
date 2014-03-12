@@ -10,8 +10,7 @@
 
 @interface LDABagOfWords : NSObject
 
-- (NSDictionary *)bag;
-
+@property (nonatomic) NSMutableDictionary* wordCounts;
 - (void)addWord:(NSString *)word;
 
 @end

@@ -9,7 +9,6 @@
 #import "LDABagOfWords.h"
 
 @interface LDABagOfWords()
-@property (nonatomic) NSMutableDictionary* wordCounts;
 @end
 @implementation LDABagOfWords
 
@@ -32,11 +31,6 @@
         _wordCounts=[NSMutableDictionary dictionaryWithCapacity:500];
     }
     return _wordCounts;
-}
-
-- (NSDictionary *)bag
-{
-    return [self.wordCounts copy];
 }
 
 @end

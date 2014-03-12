@@ -10,67 +10,84 @@
 #include <string>
 #import "lda.h"
 #import "infer.h"
-
+@interface PLDA()
+@property (nonatomic) std::vector<string> *corpus;
+@property (nonatomic) NSMutableArray *tags;
+@property (nonatomic) dispatch_queue_t queue;
+@end
 @implementation PLDA
+
+
+- (void)addToCorpus:(LDABagOfWords *)bag withTag:(NSString *)tag
+{
+	std::string *myString = new std::string;
+	[bag.wordCounts enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		myString->append([key UTF8String]);
+		myString->append(" ");
+		myString->append([[obj description] UTF8String]);
+		myString->append(" ");
+	}];
+	
+	dispatch_sync(self.queue, ^{
+		self.corpus->push_back(*myString);
+		if (tag)
+			[self.tags addObject:tag];
+		else
+			[self.tags addObject:[NSNull null]];
+	});
+	delete myString;
+}
+
+- (NSArray *)corpusTags
+{
+	return [self.tags copy];
+}
+
+- (void)dealloc
+{
+	delete self.corpus;
+}
 
 - (id)init
 {
     if (self = [super init])
     {
-        self.alpha = 0.5;
+		self.corpus = new std::vector<string>;
+		self.tags = [NSMutableArray array];
         self.beta = 0.5;
         self.numTopics=10;
         self.iterations=100;
         self.burnin=20;
+		self.queue = dispatch_queue_create("com.mekentosj.plda", NULL);
         NSString *str = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         self.modelFile = [NSURL fileURLWithPath:[str stringByAppendingPathComponent:@"/lda.model"]];
     }
     return self;
 }
 
-- (void) convertBagOfWords:(NSArray *)bagOfWords target:(std::vector<string>&)myBag
+- (double)alpha
 {
-    std::map<string, int> wordIndexMap;
-    
-    for (NSDictionary *line in bagOfWords)
-    {
-		NSMutableString *lineAsString = [[NSMutableString alloc] init];
-		[line enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-			if ([key hasContent])
-			{
-				[lineAsString appendString:key];
-				[lineAsString appendString:@" "];
-				[lineAsString appendString:[obj description]];
-				[lineAsString appendString:@" "];
-			}
-		}];
-        myBag.push_back(*new std::string([lineAsString UTF8String]));
-    }
-
+	return 50.0 / self.corpus->size();
 }
 
-- (void)learnFromDocuments:(NSArray *)bagsOfWords
+- (void)learn
 {
 
-    std::vector<string> myBag;
-    [self convertBagOfWords:bagsOfWords target:myBag];
     std::map<string, int> wordIndexMap;
     using learning_lda::LDAAccumulativeModel;
     
     
     std::string path([[self.modelFile path] UTF8String]);
     
-    learning_lda::LearnFromCorpus(&myBag,self.numTopics, &wordIndexMap, self.iterations, self.burnin, self.alpha, self.beta, path);
+    learning_lda::LearnFromCorpus(self.corpus,self.numTopics, &wordIndexMap, self.iterations, self.burnin, self.alpha, self.beta, path);
     
 }
 
-- (NSArray *)categoryProbForDocuments:(NSArray *)bagsOfWords
+- (NSArray *)categoryProbs
 {
-    std::vector<string> myBag;
-    [self convertBagOfWords:bagsOfWords target:myBag];
     std::string path([[self.modelFile path] UTF8String]);
-    std::vector<std::vector<double>> ans([bagsOfWords count]);
-    infer(path, myBag, self.alpha, self.beta, self.iterations, self.burnin, ans);
+    std::vector<std::vector<double>> ans(self.corpus->size());
+    infer(path, *(self.corpus), self.alpha, self.beta, self.iterations, self.burnin, ans);
     NSMutableArray *probs = [NSMutableArray arrayWithCapacity:ans.size()];
     for (int i=0; i < ans.size(); i++)
     {

@@ -7,15 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LDABagOfWords.h"
 
 @interface PLDA : NSObject
 
 @property (nonatomic) int numTopics;
-@property (nonatomic) double alpha;
+@property (nonatomic, readonly) double alpha;
 @property (nonatomic) double beta;
 @property (nonatomic) int iterations;
 @property (nonatomic) int burnin;
 @property (nonatomic) NSURL *modelFile;
-- (void)learnFromDocuments:(NSArray *)bagsOfWords;
-- (NSArray *)categoryProbForDocuments:(NSArray *)bagsOfWords;
+- (void)addToCorpus:(LDABagOfWords *)bag withTag:(NSString *)tag;
+- (NSArray *)corpusTags;
+- (void)learn;
+- (NSArray *)categoryProbs;
 @end
