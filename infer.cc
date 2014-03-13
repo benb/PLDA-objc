@@ -34,7 +34,7 @@
 #include "sampler.h"
 #include "cmd_flags.h"
 
-int infer(learning_lda::LDAModel &model, map<string, int> &word_index_map, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double>> &ans){
+int infer(learning_lda::LDAModel &model, map<string, int> &word_index_map, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double> > &ans){
     using learning_lda::LDACorpus;
     using learning_lda::LDAModel;
     using learning_lda::LDAAccumulativeModel;
@@ -89,7 +89,7 @@ int infer(learning_lda::LDAModel &model, map<string, int> &word_index_map, std::
     
     }
 
-int infer(string model_path, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double>>&ans){
+int infer(string model_path, std::vector<string> &bag_of_words, double alpha, double beta, int iterations, int burn_in, std::vector<std::vector<double> >&ans){
     using learning_lda::LDAModel;
     using learning_lda::LDASampler;
     using learning_lda::LDADocument;

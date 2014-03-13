@@ -18,7 +18,9 @@
 @property (nonatomic) int burnin;
 @property (nonatomic) NSURL *modelFile;
 - (void)addToCorpus:(LDABagOfWords *)bag withTag:(NSString *)tag;
+- (void)addToInferenceCorpus:(LDABagOfWords *)bag withTag:(NSString *)tag;
 - (NSArray *)corpusTags;
 - (void)learn;
 - (NSArray *)categoryProbs;
+- (NSArray *)toptags:(NSInteger)numTags forCategory:(NSInteger)category;
 @end

@@ -12,5 +12,7 @@
 
 @property (nonatomic) NSMutableDictionary* wordCounts;
 - (void)addWord:(NSString *)word;
+- (void)addText:(NSString *)text;
++ (NSString *)unstem:(NSString *)stemmedWord fromSampleText:(NSArray *)texts;
 
 @end

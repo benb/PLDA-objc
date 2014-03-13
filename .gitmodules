@@ -1,0 +1,3 @@
+[submodule "External/PorterStemmer"]
+	path = External/PorterStemmer
+	url = https://github.com/itfrombit/PorterStemmer.git
