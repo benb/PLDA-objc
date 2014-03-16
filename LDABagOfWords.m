@@ -14,7 +14,10 @@
 @end
 @implementation LDABagOfWords
 
-
+/**
+ The distribution comes with a set of stop words that are global across all models.
+ You should change this if your documents' language isn't English.
+ */
 + (NSSet *)stopWords
 {
     static dispatch_once_t once;
@@ -25,8 +28,9 @@
 	return set;
 }
 
-	
-
+/**
+ Add a single word to the bag. You should probably use a stemmer.
+ */
 - (void)addWord:(NSString *)word
 {
 	if ([[self.class stopWords] containsObject:word] || [word length] < 3)
@@ -43,6 +47,11 @@
     }
 }
 
+
+/**
+ Add a chunk of text in a string to the bag. This method will loop over the words in the string and
+ use the Porter stemmer algorithm on the words before adding them.
+ */
 - (void)addText:(NSString *)text
 {
 	NSLinguisticTagger *tagger = [[NSLinguisticTagger alloc] initWithTagSchemes:@[NSLinguisticTagSchemeTokenType] options:0];
@@ -60,6 +69,11 @@
 	}];
 }
 
+/**
+ This will take a given word and attempt to unstem it given a representitive array of NSStrings.
+ i.e. Given "struct" it will find words that stem to "struct" in the text and return the first one
+ to occur five times, else the most frequent. If the text does not have any words that stem to `stemmedWord` then this will return nil.
+ */
 + (NSString *)unstem:(NSString *)stemmedWord fromSampleText:(NSArray *)texts
 {
 	NSLinguisticTagger *tagger = [[NSLinguisticTagger alloc] initWithTagSchemes:@[NSLinguisticTagSchemeTokenType] options:0];
