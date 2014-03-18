@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LDABagOfWords : NSObject
+@interface BPBBagOfWords : NSObject
 
 @property (nonatomic) NSMutableDictionary* wordCounts;
 - (void)addWord:(NSString *)word;

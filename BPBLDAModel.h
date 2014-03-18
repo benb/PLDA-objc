@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LDABagOfWords.h"
+#import "BPBBagOfWords.h"
 
-@interface PLDA : NSObject
+@interface BPBLDAModel : NSObject
 
 /**
  The number of topics to infer
@@ -41,9 +41,10 @@
 @property (nonatomic) NSURL *modelFile;
 
 
-- (void)addBagToCorpus:(LDABagOfWords *)bag withTag:(NSString *)tag inferenceOnly:(BOOL)inferenceOnly;
+
+- (void)addBagToCorpus:(BPBBagOfWords *)bag withTag:(NSString *)tag inferenceOnly:(BOOL)inferenceOnly;
 - (NSArray *)corpusTags;
 - (void)learn;
-- (NSArray *)categoryProbs;
-- (NSArray *)toptags:(NSInteger)numTags forCategory:(NSInteger)category;
+- (NSArray *)topicProbs;
+- (NSArray *)toptags:(NSInteger)numTags forTopic:(NSInteger)topic;
 @end

@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Ben Blackburne. All rights reserved.
 //
 
-#import "LDABagOfWords.h"
+#import "BPBBagOfWords.h"
 #import "PorterStemmer.h"
 
-@interface LDABagOfWords()
+@interface BPBBagOfWords()
 
 @end
-@implementation LDABagOfWords
+@implementation BPBBagOfWords
 
 /**
  The distribution comes with a set of stop words that are global across all models.
