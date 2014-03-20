@@ -92,10 +92,6 @@
 - (void)learn
 {
 
-	if ([[NSFileManager defaultManager] fileExistsAtPath:[self.modelFile path]])
-	{
-		return;
-	}
 	
     std::map<string, int> wordIndexMap;
     using learning_lda::LDAAccumulativeModel;
