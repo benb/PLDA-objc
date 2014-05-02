@@ -7,6 +7,3 @@
 [submodule "External/jansson"]
 	path = External/jansson
 	url = git://github.com/akheron/jansson.git
-[submodule "freetype"]
-	path = freetype
-	url = git@github.com:mekentosj/freetype-gyp
