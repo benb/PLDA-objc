@@ -113,8 +113,8 @@
         "External/podofo/src/base/PdfXRefStreamParserObject.cpp"
       ],
       "include_dirs" :
-      [ 
-        "freetype/include",
+      [
+        "External/freetype/include",
         "External/podofo",
         "External/podofo/src",
         "External/podofo/src/base",
@@ -139,11 +139,11 @@
 
       "link_settings" : { "libraries" : [ "-lz" ] },
       'defines' : [ 'BUILDING_PODOFO', 'PODOFO_HAVE_FREETYPE', 'DEBUG_PODOFO' ],
-      'dependencies' : ['freetype/binding.gyp:freetype']
+      'dependencies' : ['External/freetype/binding.gyp:freetype']
     },
 
     {
-      "target_name" : "papermark",
+      "target_name" : "plda",
 
       "cflags_cc!" : [ "-fno-exceptions" ],
       "conditions" : [
@@ -160,9 +160,15 @@
       ],
 
       "sources" :
-      [ "Papermark/papermark.cpp",
-        "Papermark/Rectangle.cpp",
-  			"Papermark/Annotator.cpp" ],
+      [
+    	"accumulative_model.cc",
+    	"cmd_flags.cc",
+    	"common.cc",
+    	"document.cc",
+    	"infer.cc",
+    	"model.cc",
+    	"sampler.cc"
+      ],
 
       "include_dirs" :
       [
@@ -175,42 +181,6 @@
         "External/jansson/src", "./" ],
 
       "dependencies" : [ "jansson", "podofo" ]
-    },
-
-    {
-        "target_name" : "papermark-cli",
-        "type" : "executable",
-        "cflags_cc!" : [ "-fno-exceptions" ],
-        "conditions" : [
-            ['OS=="mac"', { "cflags_cc!": [ "-fno-exceptions" ],
-              "xcode_settings": {
-                'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
-                'OTHER_CPLUSPLUSFLAGS' : ['-std=c++11','-stdlib=libc++'],
-                'MACOSX_DEPLOYMENT_TARGET': '10.7'
-              }
-            }],
-            ['OS=="linux"', {
-                "cflags_cc!" : [ "-fno-exceptions", "-fno-rtti" ],
-		"cflags_cc"  : [ "-std=c++0x" ]
-            }]
-        ],
-
-        "sources" : [
-            "Papermark/main.cpp",
-            "Papermark/Rectangle.cpp",
-            "Papermark/Annotator.cpp" ],
-
-        "include_dirs" : [
-            "freetype/include",
-            "External/podofo",
-            "External/podofo/src",
-            "External/podofo/src/base",
-            "External/podofo/src/doc",
-            "External/PoDoFo-staticlib/podofo/podofo",
-            "External/jansson/src", "./" ],
-
-        "dependencies" : [ "jansson", "podofo" ]
-
     }
   ]
 }
