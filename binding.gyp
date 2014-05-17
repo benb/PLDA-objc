@@ -16,6 +16,7 @@
         "External/jansson/src/value.c"
       ],
       "include_dirs" : [ "External/jansson/src", "./" ],
+      "defines": ["HAVE_STDINT_H"]
     },
 
     {
@@ -144,7 +145,7 @@
 
     {
       "target_name" : "plda",
-
+      "defines" : [ 'HAVE_STDINT_H' ],
       "cflags_cc!" : [ "-fno-exceptions" ],
       "conditions" : [
         ['OS=="mac"', { "cflags_cc!": [ "-fno-exceptions" ],
@@ -167,11 +168,14 @@
     	"document.cc",
     	"infer.cc",
     	"model.cc",
-    	"sampler.cc"
+    	"sampler.cc",
+	"PLDApp/LDAModel.cc",
+	"PLDApp/PLDA.cc"
       ],
 
       "include_dirs" :
       [
+	"PLDApp",
         "freetype/include",
         "External/podofo",
         "External/podofo/src",
