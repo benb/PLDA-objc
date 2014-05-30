@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5FADB8901913C6E200FDC63D /* BPBBagOfWords.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FADB88D1913C6E200FDC63D /* BPBBagOfWords.m */; };
+		5FADB8911913C6E200FDC63D /* BPBLDAModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5FADB88F1913C6E200FDC63D /* BPBLDAModel.mm */; };
+		5FADB8C01913D33900FDC63D /* porter.c in Sources */ = {isa = PBXBuildFile; fileRef = 5FADB8BD1913D33900FDC63D /* porter.c */; };
+		5FADB8C11913D33900FDC63D /* PorterStemmer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FADB8BF1913D33900FDC63D /* PorterStemmer.m */; };
+		5FADB8C71913D36000FDC63D /* LDAModel.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FADB8C41913D36000FDC63D /* LDAModel.cc */; };
+		5FADB8C81913D36000FDC63D /* PLDA.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FADB8C61913D36000FDC63D /* PLDA.cc */; };
 		E43E3E6418C86E690073780D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43E3E6318C86E690073780D /* Foundation.framework */; };
 		E43E3E7218C86E690073780D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43E3E7118C86E690073780D /* XCTest.framework */; };
 		E43E3E7318C86E690073780D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43E3E6318C86E690073780D /* Foundation.framework */; };
@@ -22,7 +28,6 @@
 		E43E3E9D18C86EAA0073780D /* model.cc in Sources */ = {isa = PBXBuildFile; fileRef = E43E3E9318C86EAA0073780D /* model.cc */; };
 		E43E3EA118C86EB10073780D /* sampler.cc in Sources */ = {isa = PBXBuildFile; fileRef = E43E3E9F18C86EB10073780D /* sampler.cc */; };
 		E43E3EB118C87AB40073780D /* lda.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43E3EAF18C87AB40073780D /* lda.cpp */; };
-		E43E3EB518C8819A0073780D /* PLDA.mm in Sources */ = {isa = PBXBuildFile; fileRef = E43E3EB418C8819A0073780D /* PLDA.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +53,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5FADB88C1913C6E200FDC63D /* BPBBagOfWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBBagOfWords.h; sourceTree = "<group>"; };
+		5FADB88D1913C6E200FDC63D /* BPBBagOfWords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBBagOfWords.m; sourceTree = "<group>"; };
+		5FADB88E1913C6E200FDC63D /* BPBLDAModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBLDAModel.h; sourceTree = "<group>"; };
+		5FADB88F1913C6E200FDC63D /* BPBLDAModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BPBLDAModel.mm; sourceTree = "<group>"; };
+		5FADB8BD1913D33900FDC63D /* porter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = porter.c; path = External/PorterStemmer/objc/porter.c; sourceTree = "<group>"; };
+		5FADB8BE1913D33900FDC63D /* PorterStemmer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PorterStemmer.h; path = External/PorterStemmer/objc/PorterStemmer.h; sourceTree = "<group>"; };
+		5FADB8BF1913D33900FDC63D /* PorterStemmer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PorterStemmer.m; path = External/PorterStemmer/objc/PorterStemmer.m; sourceTree = "<group>"; };
+		5FADB8C41913D36000FDC63D /* LDAModel.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LDAModel.cc; path = PLDApp/LDAModel.cc; sourceTree = "<group>"; };
+		5FADB8C51913D36000FDC63D /* LDAModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LDAModel.h; path = PLDApp/LDAModel.h; sourceTree = "<group>"; };
+		5FADB8C61913D36000FDC63D /* PLDA.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PLDA.cc; path = PLDApp/PLDA.cc; sourceTree = "<group>"; };
 		E43E3E6018C86E690073780D /* libPLDA.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPLDA.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E43E3E6318C86E690073780D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E43E3E6718C86E690073780D /* PLDA-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PLDA-Prefix.pch"; sourceTree = "<group>"; };
@@ -72,8 +87,6 @@
 		E43E3EA018C86EB10073780D /* sampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sampler.h; sourceTree = "<group>"; };
 		E43E3EAF18C87AB40073780D /* lda.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lda.cpp; sourceTree = "<group>"; };
 		E43E3EB218C87ACB0073780D /* lda.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lda.h; sourceTree = "<group>"; };
-		E43E3EB318C8819A0073780D /* PLDA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLDA.h; sourceTree = "<group>"; };
-		E43E3EB418C8819A0073780D /* PLDA.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLDA.mm; sourceTree = "<group>"; };
 		E43E3F8818CA2AA80073780D /* infer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = infer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,9 +113,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5FADB8BC1913D32D00FDC63D /* External */ = {
+			isa = PBXGroup;
+			children = (
+				5FADB8C21913D33C00FDC63D /* PorterStemmer */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		5FADB8C21913D33C00FDC63D /* PorterStemmer */ = {
+			isa = PBXGroup;
+			children = (
+				5FADB8BD1913D33900FDC63D /* porter.c */,
+				5FADB8BE1913D33900FDC63D /* PorterStemmer.h */,
+				5FADB8BF1913D33900FDC63D /* PorterStemmer.m */,
+			);
+			name = PorterStemmer;
+			sourceTree = "<group>";
+		};
+		5FADB8C31913D34D00FDC63D /* PLDApp */ = {
+			isa = PBXGroup;
+			children = (
+				5FADB8C41913D36000FDC63D /* LDAModel.cc */,
+				5FADB8C51913D36000FDC63D /* LDAModel.h */,
+				5FADB8C61913D36000FDC63D /* PLDA.cc */,
+			);
+			name = PLDApp;
+			sourceTree = "<group>";
+		};
 		E43E3E5718C86E690073780D = {
 			isa = PBXGroup;
 			children = (
+				5FADB8C31913D34D00FDC63D /* PLDApp */,
+				5FADB8BC1913D32D00FDC63D /* External */,
 				E43E3EA218C86EBE0073780D /* plda-cc */,
 				E43E3E6518C86E690073780D /* PLDA */,
 				E43E3E7918C86E690073780D /* PLDATests */,
@@ -133,8 +176,6 @@
 		E43E3E6518C86E690073780D /* PLDA */ = {
 			isa = PBXGroup;
 			children = (
-				E43E3EB318C8819A0073780D /* PLDA.h */,
-				E43E3EB418C8819A0073780D /* PLDA.mm */,
 				E43E3E6618C86E690073780D /* Supporting Files */,
 			);
 			path = PLDA;
@@ -185,6 +226,10 @@
 				E43E3EAF18C87AB40073780D /* lda.cpp */,
 				E43E3E9318C86EAA0073780D /* model.cc */,
 				E43E3E9418C86EAA0073780D /* model.h */,
+				5FADB88C1913C6E200FDC63D /* BPBBagOfWords.h */,
+				5FADB88D1913C6E200FDC63D /* BPBBagOfWords.m */,
+				5FADB88E1913C6E200FDC63D /* BPBLDAModel.h */,
+				5FADB88F1913C6E200FDC63D /* BPBLDAModel.mm */,
 			);
 			name = "plda-cc";
 			sourceTree = "<group>";
@@ -274,11 +319,16 @@
 				E43E3E9818C86EAA0073780D /* cmd_flags.cc in Sources */,
 				E43E3E9718C86EAA0073780D /* accumulative_model.cc in Sources */,
 				E43E3E9A18C86EAA0073780D /* document.cc in Sources */,
+				5FADB8C01913D33900FDC63D /* porter.c in Sources */,
 				E43E3EA118C86EB10073780D /* sampler.cc in Sources */,
+				5FADB8C81913D36000FDC63D /* PLDA.cc in Sources */,
+				5FADB8901913C6E200FDC63D /* BPBBagOfWords.m in Sources */,
+				5FADB8911913C6E200FDC63D /* BPBLDAModel.mm in Sources */,
 				E43E3E9D18C86EAA0073780D /* model.cc in Sources */,
-				E43E3EB518C8819A0073780D /* PLDA.mm in Sources */,
 				E43E3EB118C87AB40073780D /* lda.cpp in Sources */,
 				E43E3E9918C86EAA0073780D /* common.cc in Sources */,
+				5FADB8C71913D36000FDC63D /* LDAModel.cc in Sources */,
+				5FADB8C11913D33900FDC63D /* PorterStemmer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +438,11 @@
 				DSTROOT = /tmp/PLDA.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PLDA/PLDA-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/node/0.10.24/include/node,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -400,6 +455,11 @@
 				DSTROOT = /tmp/PLDA.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PLDA/PLDA-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/node/0.10.24/include/node,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

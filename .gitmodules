@@ -1,3 +1,12 @@
 [submodule "External/PorterStemmer"]
 	path = External/PorterStemmer
 	url = https://github.com/itfrombit/PorterStemmer.git
+[submodule "External/podofo"]
+	path = External/podofo
+	url = git://github.com/mekentosj/podofo.git
+[submodule "External/jansson"]
+	path = External/jansson
+	url = git://github.com/akheron/jansson.git
+[submodule "External/freetype"]
+	path = External/freetype
+	url = git@github.com:mekentosj/freetype-gyp

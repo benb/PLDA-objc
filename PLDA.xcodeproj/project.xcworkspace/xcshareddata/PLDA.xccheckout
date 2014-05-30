@@ -5,36 +5,48 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>B346AF27-5B52-4539-85C0-6D8C06275430</string>
+	<string>CCF7A74D-9967-411F-AACA-C05F85D8B85D</string>
 	<key>IDESourceControlProjectName</key>
 	<string>PLDA</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>D0ECEBBB-0605-4B78-8612-5505BA9DCE77</key>
-		<string>file:///Users/bpb/Downloads/plda/</string>
+		<key>414AD483-0D38-4C30-A890-59FCD9CF93D5</key>
+		<string>https://github.com/itfrombit/PorterStemmer.git</string>
+		<key>E44E9606-C1F0-4795-B5A4-FC5620A23C38</key>
+		<string>ssh://github.com/mz2/PLDA-objc.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>PLDA.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>D0ECEBBB-0605-4B78-8612-5505BA9DCE77</key>
+		<key>414AD483-0D38-4C30-A890-59FCD9CF93D5</key>
+		<string>../../External/PorterStemmer</string>
+		<key>E44E9606-C1F0-4795-B5A4-FC5620A23C38</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>file:///Users/bpb/Downloads/plda/</string>
+	<string>ssh://github.com/mz2/PLDA-objc.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>D0ECEBBB-0605-4B78-8612-5505BA9DCE77</string>
+	<string>E44E9606-C1F0-4795-B5A4-FC5620A23C38</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>D0ECEBBB-0605-4B78-8612-5505BA9DCE77</string>
+			<string>E44E9606-C1F0-4795-B5A4-FC5620A23C38</string>
 			<key>IDESourceControlWCCName</key>
-			<string>PLDA</string>
+			<string>PLDA-objc</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>414AD483-0D38-4C30-A890-59FCD9CF93D5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PorterStemmer</string>
 		</dict>
 	</array>
 </dict>
